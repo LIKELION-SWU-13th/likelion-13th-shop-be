@@ -1,7 +1,5 @@
 package com.likelion13th.shop.entity;
 
-import com.likelion13th.shop.constant.ItemSellStatus;
-import com.likelion13th.shop.constant.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +20,7 @@ public class OrderItem {
     private int count;
     private int price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 

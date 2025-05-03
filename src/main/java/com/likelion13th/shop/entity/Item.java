@@ -1,9 +1,7 @@
 package com.likelion13th.shop.entity;
 
-import com.likelion13th.shop.constant.ItemSellStatus;
-import com.likelion13th.shop.constant.OrderStatus;
+import com.likelion13th.shop.constant.SellStatus;
 import com.likelion13th.shop.dto.ItemFormDto;
-import com.likelion13th.shop.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +13,11 @@ import java.time.LocalDateTime;
 @Table(name = "item")
 
 public class Item {
+    private String itemImg;
+    private String itemImgPath;
+    private int price;
+
+
     @Id
     @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,20 +31,39 @@ public class Item {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(unique = true)
-    private String item_detail;
-    private String item_name;
+    @Column
+    private String itemDetail;
+    private String itemName;
 
 
     @Enumerated(EnumType.STRING)
-    private ItemSellStatus itemSellStatus;
+    private SellStatus sellStatus;
 
     private LocalDateTime createdBy;
     private LocalDateTime modifiedBy;
 
     public static Item createItem(ItemFormDto itemFormDto){
         Item item = new Item();
-        item.setItem_name(itemFormDto.getItem_name());
+        item.setItemName(itemFormDto.getItemName());
+        item.setItemDetail(itemFormDto.getItemDetail());
+        item.setSellStatus(itemFormDto.getSellStatus());
+        item.setPrice(itemFormDto.getPrice());
+        item.setStock(itemFormDto.getStock());
+        item.setCreatedBy(LocalDateTime.now());
+        item.setModifiedBy(LocalDateTime.now());
         return item;
     }
+
+    @Override
+    public String toString() {
+        return "Item(id=" + id +
+                ", itemName=" + itemName +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", itemDetail=" + itemDetail +
+                ", sellStatus=" + sellStatus +
+                ")";
+    }
+
+
 }

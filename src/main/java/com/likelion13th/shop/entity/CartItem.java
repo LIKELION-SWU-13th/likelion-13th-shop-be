@@ -1,7 +1,5 @@
 package com.likelion13th.shop.entity;
 
-import com.likelion13th.shop.constant.ItemSellStatus;
-import com.likelion13th.shop.constant.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Member {
+public class Member extends BaseEntity{
     @Id
     @Column (name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +31,13 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private LocalDateTime createdBy;
-    private LocalDateTime modifiedBy;
-
-    public static Member createMember(MemberFormDto memberFormDto){
+    public static Member createMember(String name, String email, String password, String address, Role role) {
         Member member = new Member();
-        member.setName(memberFormDto.getName());
-        member.setEmail(memberFormDto.getEmail());
-        member.setPassword(memberFormDto.getPassword());
-        member.setAddress(memberFormDto.getAddress());
+        member.setName(name);
+        member.setEmail(email);
+        member.setPassword(password);
+        member.setAddress(address);
+        member.setRole(role);
         return member;
     }
-
 }
