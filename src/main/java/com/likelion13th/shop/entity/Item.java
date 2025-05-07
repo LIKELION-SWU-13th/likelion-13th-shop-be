@@ -22,8 +22,19 @@ public class Item {
     private String itemDetail;
 
     @Enumerated(EnumType.STRING)
-    private itemSellStatus status;
+    private ItemSellStatus itemSellStatus;
 
     private LocalDateTime createdBy;
     private LocalDateTime modifiedBy;
+
+    // 상품 이미지 등록
+    private String itemImg;
+    private String itemImgPath;
+
+    // 실습 2
+    @Override
+    public String toString() {
+        return "Item(id=" + id + ", itemName=" + itemName + ", price=" + price + ", stock=" + stock + ", itemDetail=" + itemDetail + ")";
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.likelion13th.shop.entity;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.likelion13th.shop.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Table(name="member")
 @Getter
 @Setter
-public class Member {
+public class Member extends BaseTime {
     @Id
     @Column (name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
