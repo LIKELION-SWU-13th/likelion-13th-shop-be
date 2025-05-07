@@ -3,20 +3,26 @@ package com.likelion13th.shop.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import com.likelion13th.shop.constant.OrderStatus;
+import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
-@Getter
+@Getter @Setter
 public class Order {
     @Id
     @Column(name = "order_id")
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<OrderItem> orderItemList = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name="member_id")
-    private Member member; // 외래키가 될 컬럼 지정
+    private Member member;
 
     private LocalDateTime orderDate;
     private LocalDateTime createdBy;

@@ -11,7 +11,7 @@ import lombok.ToString;
 @Entity
 @Table(name="member") // 객체와 테이블 매핑
 @Getter @Setter @ToString
-public class Member {
+public class Member  extends BaseTime {
     @Id
     @Column (name="member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

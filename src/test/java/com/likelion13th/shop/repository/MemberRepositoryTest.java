@@ -11,7 +11,7 @@ import com.likelion13th.shop.entity.Member;
 @SpringBootTest
 @Transactional
 @TestPropertySource(locations = "classpath:application.properties")
-public class MemberRepositoryTest {
+class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
