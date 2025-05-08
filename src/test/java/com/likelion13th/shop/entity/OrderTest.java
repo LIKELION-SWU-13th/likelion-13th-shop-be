@@ -1,12 +1,8 @@
-package com.likelion13th.shop.test.shop.entity;
+package com.likelion13th.shop.entity;
 
-import com.likelion13th.shop.entity.Item;
-import com.likelion13th.shop.entity.Order;
-import com.likelion13th.shop.entity.OrderItem;
 import com.likelion13th.shop.repository.ItemRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
