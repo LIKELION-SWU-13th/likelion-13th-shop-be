@@ -49,4 +49,22 @@ public class OrderItem {
 
         return orderItem;
     }
+
+    public static OrderItem createOrderItem(Item item, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+        orderItem.setPrice(item.getPrice());
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    public int getTotalPrice() {
+        return price * count;
+    }
+
+    public void cancel() {
+        item.addStock(count);
+    }
 }
