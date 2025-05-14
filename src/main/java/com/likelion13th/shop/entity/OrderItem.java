@@ -41,4 +41,26 @@ public class OrderItem {
 
     private LocalDateTime createdBy;
     private LocalDateTime modifiedBy;
+
+    public static OrderItem createOrderItem(Item item, int count){
+        OrderItem orderItem = new OrderItem();
+
+        orderItem.setItem(item);
+
+        orderItem.setCount(count);
+
+        orderItem.setPrice(item.getPrice());
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    public int getTotalPrice(){
+        return price * count;
+    }
+
+    // 주문을 취소할 경우 addStock 메서드를 호출하여 주문 수량만큼 상품의 재고를 증가
+    public void cancel(){
+        this.getItem().addStock(+count);
+    }
 }

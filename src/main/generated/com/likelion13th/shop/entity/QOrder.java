@@ -40,9 +40,9 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final ListPath<OrderItem, QOrderItem> orderItemList = this.<OrderItem, QOrderItem>createList("orderItemList", OrderItem.class, QOrderItem.class, PathInits.DIRECT2);
 
-    public final NumberPath<Integer> price = createNumber("price", Integer.class);
+    public final EnumPath<OrderStatus> orderStatus = createEnum("orderStatus", OrderStatus.class);
 
-    public final EnumPath<OrderStatus> status = createEnum("status", OrderStatus.class);
+    public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
     public final NumberPath<Integer> stock = createNumber("stock", Integer.class);
 

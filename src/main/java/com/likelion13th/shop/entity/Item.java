@@ -37,4 +37,16 @@ public class Item {
         return "Item(id=" + id + ", itemName=" + itemName + ", price=" + price + ", stock=" + stock + ", itemDetail=" + itemDetail + ")";
     }
 
+    public void removeStock(int stock){
+        int restStock = this.stock - stock;
+        if (restStock < 0) {
+            throw new OutOfStockException("상품의 재고 수가 부족합니다. (현재 재고 수량: " + this.stock + ")");
+        }
+        this.stock = restStock;
+        }
+
+    public void addStock(int stock){
+        this.stock += stock;
+    }
+
 }
