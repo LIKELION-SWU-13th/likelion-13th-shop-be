@@ -1,5 +1,6 @@
 package com.likelion13th.shop.service;
 
+import com.likelion13th.shop.Exception.OutOfStockException;
 import com.likelion13th.shop.dto.ItemFormDto;
 import com.likelion13th.shop.entity.Item;
 import com.likelion13th.shop.repository.ItemRepository;
@@ -126,4 +127,6 @@ public class ItemService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "ID에 해당하는 상품을 찾을 수 없습니다."+itemId);
         }
     }
+
+
 }

@@ -34,7 +34,34 @@ public class Order {
     private List<OrderItem> orderItemList = new ArrayList<>();
 
     public void addOrderItem(OrderItem orderItem){
-        this.orderItemList.add(orderItem);
+        orderItemList.add(orderItem);
         orderItem.setOrder(this);
     }
+    public static Order createOrder(Member member, List<OrderItem> orderItemList){
+        Order order = new Order();
+        order.setMember(member);
+
+        for(OrderItem orderItem : orderItemList){
+            order.addOrderItem(orderItem);
+        }
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public int getTotalPrice(){
+        int totalPrice = 0;
+        for(OrderItem orderItem : orderItemList){
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
+
+    public void cancelOrder(){
+        this.orderStatus = OrderStatus.CANCLE;
+        for(OrderItem orderItem : orderItemList){
+            orderItem.getItem();
+        }
+    }
+
 }
