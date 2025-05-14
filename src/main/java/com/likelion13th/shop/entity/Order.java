@@ -48,6 +48,7 @@ public class Order {
 
         order.setOrderStatus(OrderStatus.ORDER);
 
+        order.setOrderDate(LocalDateTime.now());
         order.setCreatedBy(LocalDateTime.now());
 
         return order;

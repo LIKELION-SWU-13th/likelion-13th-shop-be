@@ -81,7 +81,7 @@ public class ItemController {
     }
 
     //기존 상품 수정
-    @PatchMapping("/{itemId}")
+    @PostMapping("/{itemId}")
     public ResponseEntity<String> updateItem(@PathVariable("itemId") Long itemId,
                                              @RequestPart(name = "itemFormDto") ItemFormDto itemFormDto,
                                              @RequestPart(value = "itemImg", required = false) MultipartFile itemImg){

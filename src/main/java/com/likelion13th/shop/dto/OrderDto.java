@@ -19,7 +19,7 @@ public class OrderDto {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    private OrderDto of(Order order){
+    public static OrderDto of(Order order){
         OrderDto orderDto = modelMapper.map(order, OrderDto.class);
         if(!order.getOrderItemList().isEmpty()){
             orderDto.setItemId(order.getOrderItemList().get(0).getId());

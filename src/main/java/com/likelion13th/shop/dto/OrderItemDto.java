@@ -1,8 +1,11 @@
 package com.likelion13th.shop.dto;
 
 import com.likelion13th.shop.entity.OrderItem;
+import lombok.Getter;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+@Getter @Setter
 public class OrderItemDto {
     private Long itemId;
     private String itemName;
