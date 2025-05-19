@@ -31,6 +31,7 @@ public class OrderController {
 
     }
 
+    // 주문 내역 전체 조회
     @GetMapping("/all")
     public ResponseEntity<List<OrderDto>> getAllOrder(@RequestParam(name = "email") String email){
 
@@ -40,6 +41,7 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    // 주문 내역 상세 조회
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderItemDto> getOrderDetails(@PathVariable("orderId") Long orderId,
                                                         @RequestParam(name = "email") String email){
@@ -50,6 +52,7 @@ public class OrderController {
         return ResponseEntity.ok(orderItemDto);
     }
 
+    // 주문 취소
     @PutMapping("/{orderId}/cancel")
     public ResponseEntity<String> cancelOrder(@PathVariable("orderId") Long orderId,
                                               @RequestParam(name = "email") String email){

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class PaymentDto {
     private Long paymentId;
     private Long orderId;
-    private int amount;
+    private int count;
     private String method;
     private String paymentStatus;
     private LocalDateTime paidBy;

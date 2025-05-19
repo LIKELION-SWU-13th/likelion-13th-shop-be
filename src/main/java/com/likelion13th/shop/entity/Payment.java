@@ -31,11 +31,11 @@ public class Payment {
     private PaymentStatus status;
     private LocalDateTime paidBy; // 결제 일시
 
-    public static Payment createPayment(PaymentDto paymentDto) {
-        Payment payment = new Payment();
-        payment.setAmount(paymentDto.getAmount());
-        payment.setMethod(paymentDto.getMethod());
-        payment.setStatus(PaymentStatus.valueOf(paymentDto.getPaymentStatus()));
-        return payment;
-    }
+//    public static Payment createPayment(PaymentDto paymentDto) {
+//        Payment payment = new Payment();
+//        payment.setAmount(paymentDto.getAmount());
+//        payment.setMethod(paymentDto.getMethod());
+//        payment.setStatus(PaymentStatus.valueOf(paymentDto.getPaymentStatus()));
+//        return payment;
+//    }
 }
