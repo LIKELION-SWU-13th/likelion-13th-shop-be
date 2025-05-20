@@ -12,6 +12,7 @@ import com.likelion13th.shop.repository.ItemRepository;
 import com.likelion13th.shop.repository.MemberRepository;
 import com.likelion13th.shop.repository.OrderItemRepository;
 import com.likelion13th.shop.repository.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -84,5 +85,22 @@ public class OrderService {
 
         order.setOrderStatus(OrderStatus.CANCELED);
         orderRepository.save(order);
+    }
+
+    public Long orders(List<OrderReqDto> orderDtoList, String email) {
+        Member member = memberRepository.findByEmail(email);
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        for (OrderReqDto orderReqDto : orderDtoList) {
+            Item item = itemRepository.findById(orderReqDto.getItemId()).orElseThrow(EntityNotFoundException::new);
+
+            OrderItem orderItem = OrderItem.createOrderItem(item, orderReqDto.getCount());
+            orderItemList.add(orderItem);
+        }
+
+        Order order = Order.createOrder(member, orderItemList);
+        orderRepository.save(order);
+
+        return order.getId();
     }
 }
