@@ -1,6 +1,7 @@
 package com.likelion13th.shop.service;
 
 import com.likelion13th.shop.constant.OrderStatus;
+import com.likelion13th.shop.dto.CartOrderDto;
 import com.likelion13th.shop.dto.OrderDto;
 import com.likelion13th.shop.dto.OrderItemDto;
 import com.likelion13th.shop.dto.OrderReqDto;
@@ -11,6 +12,7 @@ import com.likelion13th.shop.entity.OrderItem;
 import com.likelion13th.shop.repository.ItemRepository;
 import com.likelion13th.shop.repository.MemberRepository;
 import com.likelion13th.shop.repository.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
@@ -83,6 +85,26 @@ public class OrderService {
 
         order.cancelOrder();
         orderRepository.save(order);
+    }
+
+    public Long orders(List<OrderReqDto> orderDtoList, String email) {
+        Member member = memberRepository.findByEmail(email);
+
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        for(OrderReqDto orderReqDto : orderDtoList){
+            Item item = itemRepository.findById(orderReqDto.getItemId()).orElseThrow(EntityNotFoundException::new);
+
+            OrderItem orderItem = OrderItem.createOrderItem(item, orderReqDto.getCount());
+            orderItemList.add(orderItem);
+
+
+        }
+
+        Order order = Order.createOrder(member, orderItemList);
+        orderRepository.save(order);
+
+        return order.getId();
     }
 
 }
