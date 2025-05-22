@@ -58,6 +58,16 @@ dependencies {
 
 	// modelmapper 의존성
 	implementation 'org.modelmapper:modelmapper:2.3.9'
+
+	// 템플릿 엔진 thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// 스프링 시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	// 빈 유효성 검증
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 

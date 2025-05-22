@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import com.likelion13th.shop.constant.Role;
 import lombok.ToString;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @ToString
 public class Member extends BaseTime{
+
     // PK 설정
     @Id
     @Column(name="member_id")
@@ -34,12 +36,16 @@ public class Member extends BaseTime{
     private LocalDateTime modifiedBy;
 
     // 올바르게 클래스 내부에 위치
-    public static Member createMember(MemberFormDto memberFormDto){
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
-        member.setPassword(memberFormDto.getPassword());
+        String pwd = passwordEncoder.encode(memberFormDto.getPassword());
+        member.setPassword(pwd);
+        member.setRole(Role.USER);
         member.setAddress(memberFormDto.getAddress());
+
         return member;
     }
 }
