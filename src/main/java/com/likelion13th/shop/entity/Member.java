@@ -1,12 +1,13 @@
 package com.likelion13th.shop.entity;
 
-import com.likelion13th.shop.MemberFormDto.MemberFormDto;
+import com.likelion13th.shop.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
 import com.likelion13th.shop.constant.Role;
 import lombok.ToString;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Table(name="member") // 객체와 테이블 매핑
@@ -30,11 +31,13 @@ public class Member  extends BaseTime {
     private LocalDateTime createdBy;
     private LocalDateTime modifiedBy;
 
-    public static Member createMember(MemberFormDto memberFormDto){
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
-        member.setPassword(memberFormDto.getPassword());
+        String pwd = passwordEncoder.encode(memberFormDto.getPassword());
+        member.setPassword(pwd);
+        member.setRole(Role.USER);
         member.setAddress(memberFormDto.getAddress());
         return member;
     }

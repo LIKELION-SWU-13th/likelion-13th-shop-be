@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import jakarta.persistence.EntityNotFoundException;
 import com.likelion13th.shop.constant.ItemSellStatus;
 import java.time.LocalDateTime;
 
