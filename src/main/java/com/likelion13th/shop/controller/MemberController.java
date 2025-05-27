@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequestMapping("/members")
 @Controller
@@ -21,9 +23,11 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
+    private static final Logger log = LoggerFactory.getLogger(MemberController.class);
+
     @GetMapping(value="/new")
     public String memberForm(Model model) {
-        model.addAttribute("MemberFormDto", new MemberFormDto());
+        model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
 
@@ -36,10 +40,29 @@ public class MemberController {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
         } catch (IllegalStateException e) {
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
             return "member/memberForm";
         }
 
         return "redirect:/";
+    }
+
+    // 요청 시 로그인 폼 페이지로 이동
+    @GetMapping("/login")
+    public String loginMember() {
+        return "member/memberLoginForm";
+    }
+
+    // 로그인 실패한 경우
+    @GetMapping("/login/error")
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
+        return "member/memberLoginForm";
+    }
+
+    // 관리자 페이지
+    @GetMapping("/admin/page")
+    public String adminPage(Model model) {
+        return "member/admin";
     }
 }

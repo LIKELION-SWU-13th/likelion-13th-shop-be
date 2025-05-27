@@ -108,8 +108,8 @@ public class OrderTest {
         member.setPassword("1234");
         member.setRole(Role.ADMIN);
         member.setAddress("서울특별시 노원구 공릉동");
-        member.setCreatedBy(LocalDateTime.now());
-        member.setModifiedBy(LocalDateTime.now());
+//        member.setCreatedBy(LocalDateTime.now());
+//        member.setModifiedBy(LocalDateTime.now());
         memberRepository.save(member);
 
         order.setMember(member);

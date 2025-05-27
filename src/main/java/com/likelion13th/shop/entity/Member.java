@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import com.likelion13th.shop.constant.Role;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name="member")
 @Getter @Setter
 @ToString
-public class Member extends BaseTime{
+public class Member extends Base{
 
     // PK 설정
     @Id
@@ -32,8 +34,11 @@ public class Member extends BaseTime{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private LocalDateTime createdBy;
-    private LocalDateTime modifiedBy;
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String modifiedBy;
 
     // 올바르게 클래스 내부에 위치
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
