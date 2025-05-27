@@ -1,0 +1,22 @@
+package com.likelion13th.shop.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@Getter
+@EntityListeners(value = {AuditingEntityListener.class})
+public abstract class Base extends BaseTime{
+    // 등록자
+    @CreatedBy
+    @Column(updatable = false)
+    private String createdBy;
+
+    // 수정자
+    @LastModifiedBy
+    private String modifiedBy;
+}
