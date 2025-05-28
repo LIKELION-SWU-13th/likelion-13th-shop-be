@@ -47,6 +47,18 @@ dependencies {
 
 	// 이미지 업로드 세팅 의존성 주입 － ６주차
 	implementation('commons-io:commons-io:2.11.0')
+
+	// 템플릿 엔진 thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// 스프링 시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// 빈 유효성 검증
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// 스프링 시큐리티 사용을 위한 의존성
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 // Q타입 생성 자동 설정 (자바 소스 경로 지정)

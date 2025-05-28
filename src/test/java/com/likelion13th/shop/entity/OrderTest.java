@@ -136,7 +136,7 @@ public class OrderTest {
         order.setItemDetail("테스트 주문 상세 설명");
         order.setStock(50);
         order.setItemSellStatus(ItemSellStatus.SELL);
-        order.setStatus(OrderStatus.ORDER);
+        order.setOrderStatus(OrderStatus.ORDER);
 
         return order;
     }
