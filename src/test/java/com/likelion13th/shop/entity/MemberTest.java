@@ -23,7 +23,7 @@ public class MemberTest {
 
     @Test
     @DisplayName("Auditing 테스트")
-    @WithMockUser(username = "아기사자", roles = "USER")
+    @WithMockUser(username = "jeyoung", roles = "USER")
     public void auditingTest() {
 
         Member member = new Member();
