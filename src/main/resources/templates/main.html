@@ -15,4 +15,9 @@
 <div>
   <button type="button" class="btn btn-primary" sec:authorize="isAuthenticated()" onClick="location.href='/members/logout'">로그아웃</button>
 </div>
+
+<!-- 관리자 페이지 버튼 -->
+<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+    <a href="/admin/page">관리자 페이지</a>
+</div>
 </html>

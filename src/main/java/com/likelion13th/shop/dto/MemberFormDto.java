@@ -1,5 +1,6 @@
 package com.likelion13th.shop.dto;
 
+import com.likelion13th.shop.constant.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -24,4 +25,6 @@ public class MemberFormDto {
 
     @NotBlank(message = "주소는 필수 입력 값입니다.")
     private String address;
+
+    private Role role;
 }
