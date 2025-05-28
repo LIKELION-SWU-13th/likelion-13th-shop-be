@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>관리자 로그인</title>
+</head>
+<body>
+<h2>관리자 로그인</h2>
+<form th:action="@{/members/login}" method="post">
+    <label>이메일: <input type="text" name="email"/></label><br/>
+    <label>비밀번호: <input type="password" name="password"/></label><br/>
+    <button type="submit">로그인</button>
+</form>
+<div th:if="${param.error}">
+    <p>아이디 또는 비밀번호를 확인해주세요</p>
+</div>
+</body>
+</html>
