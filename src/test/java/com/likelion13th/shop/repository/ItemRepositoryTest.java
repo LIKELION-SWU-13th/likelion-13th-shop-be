@@ -101,7 +101,7 @@ class ItemRepositoryTest {
         QItem qItem = QItem.item;
 
         JPAQuery<Item> query = queryFactory.selectFrom(qItem)
-                .where(qItem.ItemSellStatus.eq(ItemSellStatus.SALE))
+//                .where(qItem.ItemSellStatus.eq(ItemSellStatus.SALE))
                 .where(qItem.itemDetail.like("%" + "테스트 상품 상세 설명" + "%"))
                 .orderBy(qItem.price.desc());
 
