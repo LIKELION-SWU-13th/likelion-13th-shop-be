@@ -32,17 +32,19 @@ public class SecurityConfig {
                         .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                         .logoutSuccessUrl("/")
                 );
-
+        //
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/members/login").anonymous()
                         .requestMatchers("/member/logout").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 );
 
         http
                 .exceptionHandling(error -> error
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedHandler(new AdminErrorHandler())
                 );
 
         return http.build();

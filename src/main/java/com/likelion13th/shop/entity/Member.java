@@ -7,9 +7,13 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import com.likelion13th.shop.constant.Role;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="member") // 객체와 테이블 매핑
 @Getter @Setter @ToString
 public class Member  extends BaseTime {
@@ -28,8 +32,12 @@ public class Member  extends BaseTime {
     @Enumerated(EnumType.STRING) // 역할 지정
     private Role role;
 
-    private LocalDateTime createdBy;
-    private LocalDateTime modifiedBy;
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String modifiedBy;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();

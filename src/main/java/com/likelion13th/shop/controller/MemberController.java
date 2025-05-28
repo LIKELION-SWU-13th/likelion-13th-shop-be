@@ -23,7 +23,7 @@ public class MemberController {
 
     @GetMapping(value = "/new") // 요청 시 회원가입 폼 페이지로 이동
     public String memberForm(Model model) {
-        model.addAttribute("mamberFormDto", new MemberFormDto());
+        model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
 
@@ -42,5 +42,16 @@ public class MemberController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String loginMember() {
+        return "member/memberLoginForm";
+    }
+
+    @GetMapping("/login/error")
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해 주세요.");
+        return "member/memberLoginForm";
     }
 }

@@ -46,8 +46,8 @@ public class OrderTest {
         member.setPassword("password");
         member.setAddress("서울특별시 노원구");
         member.setRole(Role.USER);
-        member.setCreatedBy(LocalDateTime.now());
-        member.setModifiedBy(LocalDateTime.now());
+        member.setCreatedBy(LocalDateTime.now().toString());
+        member.setModifiedBy(LocalDateTime.now().toString());
         em.persist(member);
         em.flush();
     }
@@ -90,8 +90,8 @@ public class OrderTest {
         member.setPassword("password");
         member.setAddress("서울특별시 노원구");
         member.setRole(Role.USER);
-        member.setCreatedBy(LocalDateTime.now());
-        member.setModifiedBy(LocalDateTime.now());
+        member.setCreatedBy(LocalDateTime.now().toString());
+        member.setModifiedBy(LocalDateTime.now().toString());
         em.persist(member);
 
         order.setMember(member);
