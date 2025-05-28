@@ -23,13 +23,13 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath address = createString("address");
 
-    public final DateTimePath<java.time.LocalDateTime> createdBy = createDateTime("createdBy", java.time.LocalDateTime.class);
+    public final StringPath createdBy = createString("createdBy");
 
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final DateTimePath<java.time.LocalDateTime> modifiedBy = createDateTime("modifiedBy", java.time.LocalDateTime.class);
+    public final StringPath modifiedBy = createString("modifiedBy");
 
     public final StringPath name = createString("name");
 
@@ -37,6 +37,8 @@ public class QMember extends EntityPathBase<Member> {
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
+
+    public final EnumPath<com.likelion13th.shop.constant.Role> role = createEnum("role", com.likelion13th.shop.constant.Role.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;

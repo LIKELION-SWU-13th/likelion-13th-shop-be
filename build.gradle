@@ -23,7 +23,7 @@ repositories {
 	mavenCentral()
 }
 
-<<<<<<< HEAD
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -32,10 +32,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-=======
+
+}
+
 def querydslVersion = "5.0.0"
 
-// 📌 의존성
+    // 의존성
 dependencies {
 	// 스프링 부트
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -56,6 +58,10 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testImplementation 'org.mockito:mockito-core:5.10.0'
 	testImplementation 'org.mockito:mockito-inline:5.2.0'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	//
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
 	// 이미지 업로드
 	implementation 'commons-io:commons-io:2.14.0'
@@ -68,6 +74,14 @@ dependencies {
 
 	// ModelMapper
 	implementation 'org.modelmapper:modelmapper:2.3.9'
+	// 템플릿 엔진 thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// 스프링 시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// 빈 유효성 검증
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// thymeleaf에서 스프링 시큐리티 사용을 위한 의존성 추가
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 }
 
 // QueryDSL Q타입 생성 디렉토리 설정
@@ -85,10 +99,10 @@ tasks.withType(JavaCompile).configureEach {
 	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
 }
 
-clean {
-	delete file(querydslDir)
->>>>>>> week7
+tasks.withType(JavaCompile) {
+	options.compilerArgs << '-parameters'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

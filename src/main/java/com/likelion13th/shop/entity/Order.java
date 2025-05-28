@@ -77,7 +77,7 @@ public class Order {
         }
         return totalPrice;
     }
-    //주문 취소 시(1) 주문상태를 "CANCEL" 상태로 바꿔주고 , 주문 수량을 상품의 재고에 더해준다
+
     public void cancelOrder(){
         this.orderStatus = OrderStatus.CANCEL;
         for(OrderItem orderItem : orderItemList){

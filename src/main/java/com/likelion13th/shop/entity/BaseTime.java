@@ -1,8 +1,7 @@
 package com.likelion13th.shop.entity;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,15 +10,17 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@EntityListeners(value = {AuditingEntityListener.class})
+@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-@Getter @Setter
+@Getter
+@Setter
 public abstract class BaseTime {
+
     @CreatedDate
-    @Column(updatable = false)
+    @Column(name = "reg_time", updatable = false)
     private LocalDateTime regTime;
 
     @LastModifiedDate
-    @Column(updatable = false)
+    @Column(name = "update_time")
     private LocalDateTime updateTime;
 }

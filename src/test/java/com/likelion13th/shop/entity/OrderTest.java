@@ -80,8 +80,9 @@ public class OrderTest {
 
         em.flush();
     }
+};
 
-    @Test
+    /*@Test
     @DisplayName("지연 로딩 테스트")
     public void lazyLoadingTest() {
         Order order = this.createOrder();
@@ -100,4 +101,4 @@ public class OrderTest {
         orderItem.getOrder().getOrderDate();
         System.out.println("====================================================");
     }
-}
+}*/

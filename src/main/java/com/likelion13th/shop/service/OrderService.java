@@ -1,7 +1,6 @@
 package com.likelion13th.shop.service;
 
 import com.likelion13th.shop.constant.OrderStatus;
-import com.likelion13th.shop.dto.ItemFormDto;
 import com.likelion13th.shop.dto.OrderDto;
 import com.likelion13th.shop.dto.OrderItemDto;
 import com.likelion13th.shop.dto.OrderReqDto;
@@ -11,16 +10,12 @@ import com.likelion13th.shop.entity.Order;
 import com.likelion13th.shop.entity.OrderItem;
 import com.likelion13th.shop.repository.ItemRepository;
 import com.likelion13th.shop.repository.MemberRepository;
+import com.likelion13th.shop.repository.OrderItemRepository;
 import com.likelion13th.shop.repository.OrderRepository;
-import jakarta.transaction.Transactional;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,30 +25,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     @Autowired
-    private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
+    @Autowired
     private final ItemRepository itemRepository;
+    @Autowired
+    private final OrderRepository orderRepository;
+    private Object EntityNotFoundException;
 
     public Long createNewOrder(OrderReqDto orderReqDto, String email) {
+        Member member = memberRepository.findByEmail(email); // 이메일로 회원 조회
 
-        Member member = memberRepository.findByEmail(email);
-        if (member == null) {
+        if (member == null) { // 회원이 존재하지 않을 경우 email로 새로운 회원 생성
             member = new Member();
             member.setEmail(email);
             memberRepository.save(member);
         }
+
         Long itemId = orderReqDto.getItemId();
+
         Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다.")) ;
 
         OrderItem orderItem = OrderItem.createOrderItem(item, orderReqDto.getCount());
 
         Order order = Order.createOrder(member, Collections.singletonList(orderItem));
 
-        orderRepository.save(order);
+        orderRepository.save(order); // 주문 저장
 
         return order.getId();
-
     }
 
     // 모든 주문 내역 조회
@@ -68,28 +67,27 @@ public class OrderService {
     }
 
     // 주문 내역 상세조회
-    public OrderItemDto getOrderDetails(Long orderId, String email) {
-
-        Order order = orderRepository.findById(orderId) //orderId로 주문 조회
+    public OrderItemDto getOrderDtails(Long orderId, String email) {
+        Order order = orderRepository.findById(orderId) // orderId로 주문 조회
                 .orElseThrow(() -> new IllegalArgumentException("주문 ID 없음 : " + orderId));
 
         // 주문을 생성한 사용자인지 확인
-        if (!order.getMember().getEmail().equals(email)) {
+        if(!order.getMember().getEmail().equals(email)) {
             throw new IllegalArgumentException("주문자만 접근 가능함");
         }
 
         // 주문에 속한 주문 상품들을 가져온다
-        List<OrderItem> orderItems = order.getOrderItems();
+        List<OrderItem> orderItems = order.getOrderItemList();
 
-
-        if (!orderItems.isEmpty()) {
-            OrderItem orderItem = orderItems.get(0);  // 필요 시 전체 리스트로 확장 가능
+        if(!orderItems.isEmpty()) {
+            OrderItem orderItem = orderItems.get(0);
 
             return OrderItemDto.of(orderItem);
         } else {
             throw new IllegalArgumentException("주문 아이템이 없음");
         }
     }
+
     // 주문 취소
     public void cancelOrder(Long orderId, String email) {
         Order order = orderRepository.findById(orderId)
@@ -104,6 +102,28 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    public Long orders(List<OrderReqDto> orderDtoList, String email){
+
+        //이메일로 회원 조회
+        Member member = memberRepository.findByEmail(email);
+
+        //주문 아이템 리스트 작성
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        for (OrderReqDto orderReqDto : orderDtoList) {
+            Item item = itemRepository.findById(orderReqDto.getItemId()).orElseThrow(EntityNotFoundException::new);
+
+            OrderItem orderItem = OrderItem.createOrderItem(item, orderReqDto.getCount());
+            orderItemList.add(orderItem);
+        }
+
+        Order order = Order.createOrder(member, orderItemList);
+        orderRepository.save(order);
+
+        return order.getId();
+
+
+    }
 }
 
 

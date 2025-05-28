@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class OrderItem {
     @Id
-    @Column(name = "orderItem_id")
+    @JoinColumn(name = "orderItem_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,11 +43,12 @@ public class OrderItem {
         return orderItem;
     }
 
-    //주문 가격과 주문 수량을 곱해서 주문 총 가격을 계산
-    public int getTotalPrice(){
+    public int getTotalPrice() {
         return orderPrice * count;
     }
-    public void cancel(){
-        this.getItem().addStock(count);
+
+    // 주문을 취소할 경우 addStock 메서드를 호출하여 주문 수량만큼 상품의 재고를 증가
+    public void cancel() {
+        item.addStock(count);
     }
 }
