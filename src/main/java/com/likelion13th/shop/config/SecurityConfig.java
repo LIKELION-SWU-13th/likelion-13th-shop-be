@@ -19,7 +19,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin(form -> form
                         .loginPage("/members/login")
@@ -29,17 +29,19 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                );
-        http
+                )
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/members/login").anonymous()
                         .requestMatchers("/members/logout").authenticated()
                         .anyRequest().permitAll()
-                );
-        http
+                )
                 .exceptionHandling(error -> error
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
                 );
+
         return http.build();
     }
+
 }

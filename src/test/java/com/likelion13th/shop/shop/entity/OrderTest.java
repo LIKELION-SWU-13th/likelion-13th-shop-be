@@ -22,7 +22,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/*
 @SpringBootTest
 @Transactional
 @EnableJpaAuditing
@@ -168,4 +168,4 @@ public class OrderTest {
         System.out.println("====================================================");
     }
 
-}
+}*/

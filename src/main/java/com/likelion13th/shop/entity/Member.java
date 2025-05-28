@@ -36,8 +36,11 @@ public class Member  extends BaseTime {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private LocalDateTime createdBy;
-    private LocalDateTime modifiedBy;
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String modifiedBy;
 
     public static Member createMember(MemberFormDto dto) {
         Member member = new Member();
