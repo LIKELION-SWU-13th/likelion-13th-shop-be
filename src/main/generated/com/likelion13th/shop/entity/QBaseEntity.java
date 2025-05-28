@@ -13,7 +13,7 @@ import com.querydsl.core.types.Path;
  * QBaseEntity is a Querydsl query type for BaseEntity
  */
 @Generated("com.querydsl.codegen.DefaultSupertypeSerializer")
-public class QBaseEntity extends EntityPathBase<BaseEntity> {
+public class QBaseEntity extends EntityPathBase<Base> {
 
     private static final long serialVersionUID = 1894689535L;
 
@@ -32,15 +32,15 @@ public class QBaseEntity extends EntityPathBase<BaseEntity> {
     public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;
 
     public QBaseEntity(String variable) {
-        super(BaseEntity.class, forVariable(variable));
+        super(Base.class, forVariable(variable));
     }
 
-    public QBaseEntity(Path<? extends BaseEntity> path) {
+    public QBaseEntity(Path<? extends Base> path) {
         super(path.getType(), path.getMetadata());
     }
 
     public QBaseEntity(PathMetadata metadata) {
-        super(BaseEntity.class, metadata);
+        super(Base.class, metadata);
     }
 
 }

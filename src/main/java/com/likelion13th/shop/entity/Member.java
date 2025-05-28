@@ -6,16 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 import com.likelion13th.shop.constant.Role;
 import lombok.ToString;
-
-import java.time.LocalDateTime;
-import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Table(name="member")
 @Getter
 @Setter
 @ToString
-public class Member extends BaseEntity{
+public class Member extends Base {
     @Id
     @Column (name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,13 +29,21 @@ public class Member extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static Member createMember(String name, String email, String password, String address, Role role) {
+    public static Member createMember(MemberFormDto dto){
         Member member = new Member();
-        member.setName(name);
-        member.setEmail(email);
-        member.setPassword(password);
-        member.setAddress(address);
-        member.setRole(role);
+        member.setEmail(dto.getEmail());
+        member.setPassword(dto.getPassword());
+        member.setAddress(dto.getAddress());
+        return member;
+    }
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+        Member member = new Member();
+        member.setName(memberFormDto.getName());
+        member.setEmail(memberFormDto.getEmail());
+        String pwd = passwordEncoder.encode(memberFormDto.getPassword());
+        member.setPassword(pwd);
+        member.setRole(Role.USER);
+        member.setAddress(memberFormDto.getAddress());
         return member;
     }
 }
