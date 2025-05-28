@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout1}">
+
+<head>
+    <title>메인 페이지</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h1>메인페이지입니다.</h1>
+
+    <div>
+        <button type="button" class="btn btn-primary"
+                sec:authorize="isAnonymous()"
+                onclick="location.href='/members/login'">로그인</button>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-primary"
+                sec:authorize="isAuthenticated()"
+                onclick="location.href='/members/logout'">로그아웃</button>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-primary"
+                sec:authorize="hasRole('ADMIN')"
+                onClick="location.href='/admin'">관리자 페이지</button>
+    </div>
+
+</div>
+</body>
+</html>

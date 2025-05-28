@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Whitelabel Error Page</title>
+</head>
+<body>
+<h1>Whitelabel Error Page</h1>
+<p>This application has no explicit mapping for /error, so you are seeing this as a fallback.</p>
+<hr>
+<p>There was an unexpected error (type=Forbidden, status=403).</p>
+<p th:text="${errorMessage}">접근 권한이 없습니다. 관리자만 접근 가능합니다.</p>
+</body>
+</html>
