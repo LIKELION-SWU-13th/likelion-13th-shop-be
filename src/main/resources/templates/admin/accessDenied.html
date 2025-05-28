@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+  <style>
+    .fieldError {
+      color: #bd2130;
+    }
+  </style>
+</th:block>
+
+<head>
+  <title>접근 거부</title>
+</head>
+<body>
+  <h1>접근 거부 (403 에러)</h1>
+  <p>해당 페이지에 접근할 권한이 없습니다.</p>
+</body>
+</html>

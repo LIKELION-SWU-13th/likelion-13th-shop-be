@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.3'
 	id 'io.spring.dependency-management' version '1.1.7'
+	//id 'org.junit.platform.gradle.plugin' version '1.8.2' // JUnit 5 플러그인
 }
 
 group = 'com.likelion13th'
@@ -23,7 +24,13 @@ repositories {
 	mavenCentral()
 }
 
+// QueryDSL 관련
+def querydslVersion = "5.0.0"
+
 dependencies {
+	// 6주차 - ModelMapper 의존성 주입
+	implementation 'org.modelmapper:modelmapper:2.3.9'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -31,8 +38,39 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// QueryDSL 관련
+	implementation "com.querydsl:querydsl-jpa:${querydslVersion}:jakarta"
+	annotationProcessor "com.querydsl:querydsl-apt:${querydslVersion}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// 이미지 업로드 세팅 의존성 주입 － ６주차
+	implementation('commons-io:commons-io:2.11.0')
+
+	// 템플릿 엔진 thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// 스프링 시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// 빈 유효성 검증
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// 스프링 시큐리티 사용을 위한 의존성
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+// Q타입 생성 자동 설정 (자바 소스 경로 지정)
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java']
+		}
+	}
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
